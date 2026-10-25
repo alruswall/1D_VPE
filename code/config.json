@@ -16,4 +16,9 @@
   {
     "data_path": "/JSspace/VPE/db/"
   }
+  ,
+  "hifsignals":
+  {
+    "data_path": "/VPE/db/hifsignals"
+  }
 }

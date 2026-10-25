@@ -124,7 +124,7 @@ def train(e):
 
     optimizer.zero_grad()
     target = torch.squeeze(target)
-    input, template = input.cuda(async=True), template.cuda(async=True)
+    input, template = input.cuda(non_blocking=False), template.cuda(non_blocking=False)
 
     recon, mu, logvar, input_stn = net(input)
     loss = loss_function(recon, template, mu, logvar) # reconstruction loss
@@ -151,7 +151,7 @@ def train(e):
   if e%save_epoch == 0:
     class_target = torch.LongTensor(list(range(n_classes)))
     class_template = tr_loader.load_template(class_target)
-    class_template = class_template.cuda(async=True)
+    class_template = class_template.cuda(non_blocking=False)
     with torch.no_grad():
       class_recon, class_mu, class_logvar, _ = net(class_template)
     
@@ -200,14 +200,14 @@ def test(e, best_acc):
   # get template latent z
   class_target = torch.LongTensor(list(range(n_classes)))
   class_template = te_loader.load_template(class_target)
-  class_template = class_template.cuda(async=True)
+  class_template = class_template.cuda(non_blocking=False)
   with torch.no_grad():
     class_recon, class_mu, class_logvar, _ = net(class_template)
   
   for i, (input, target, template) in enumerate(testloader):
 
     target = torch.squeeze(target)
-    input, template = input.cuda(async=True), template.cuda(async=True)
+    input, template = input.cuda(non_blocking=False), template.cuda(non_blocking=False)
     with torch.no_grad():
       recon, mu, logvar, input_stn  = net(input)
     
