@@ -6,7 +6,7 @@ from torch.utils.data import Dataset
 import scipy.misc as m
 import random
 import csv
-class hifLoader(Dataset):
+class hifsignalsLoader(Dataset):
 
   def __init__(self, root, exp, split='train', is_transform=False, img_size=None, augmentations=None, prototype_sampling_rate=0.005):
     super().__init__()
